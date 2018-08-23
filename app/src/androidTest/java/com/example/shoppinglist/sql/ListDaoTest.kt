@@ -66,14 +66,23 @@ class ListDaoTest : DbTest() {
     }
 
     @Test
-    fun generatesNewId() {
-        val shoppingList = ShoppingList(0, 1L, listOf(ShoppingItem("mleko"), ShoppingItem("chleb")), false)
-        val shoppingList2 = ShoppingList(0, 1L, listOf(ShoppingItem("mleko"), ShoppingItem("cukier")), false)
+    fun autoIncrementWithIdEqualToZero() {
+        val shoppingList = ShoppingList(0, 0L, listOf(ShoppingItem("mleko"), ShoppingItem("chleb")), false)
+        val shoppingList2 = ShoppingList(0, 0L, listOf(ShoppingItem("mleko"), ShoppingItem("cukier")), false)
         db.listDao().persist(shoppingList)
         db.listDao().persist(shoppingList2)
         val list = getValue(db.listDao()
                 .fetch())
         assertEquals(list.size, 2)
+
+        val shoppingList3 = ShoppingList(0, 123L, listOf(ShoppingItem("mleko"), ShoppingItem("chleb")), false)
+        val shoppingList4 = ShoppingList(0, 123L, listOf(ShoppingItem("mleko"), ShoppingItem("cukier")), false)
+        db.listDao().persist(shoppingList3)
+        db.listDao().persist(shoppingList4)
+        val anotherList = getValue(db.listDao()
+                .fetch())
+        assertEquals(anotherList.size, 3)
+
     }
 
 
