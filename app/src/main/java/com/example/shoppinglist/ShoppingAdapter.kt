@@ -11,7 +11,7 @@ import kotlinx.android.synthetic.main.shoppinglist_item.view.*
  * Created by ignacy on 23.08.18.
  */
 
-class ShoppingAdapter(val items: ArrayList<String>, val context: Context) : RecyclerView.Adapter<ViewHolder>() {
+class ShoppingAdapter(var items: ArrayList<String>, val context: Context) : RecyclerView.Adapter<ViewHolder>() {
 
     // Gets the number of animals in the list
     override fun getItemCount(): Int {
@@ -27,6 +27,8 @@ class ShoppingAdapter(val items: ArrayList<String>, val context: Context) : Recy
     override fun onBindViewHolder(holder: ViewHolder?, position: Int) {
         holder?.product?.text = items.get(position)
     }
+
+
 }
 
 class ViewHolder(view: View) : RecyclerView.ViewHolder(view) {

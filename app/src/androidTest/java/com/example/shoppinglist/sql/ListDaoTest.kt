@@ -65,5 +65,16 @@ class ListDaoTest : DbTest() {
         assertTrue(list.get(0).isArchived)
     }
 
+    @Test
+    fun generatesNewId() {
+        val shoppingList = ShoppingList(0, 1L, listOf(ShoppingItem("mleko"), ShoppingItem("chleb")), false)
+        val shoppingList2 = ShoppingList(0, 1L, listOf(ShoppingItem("mleko"), ShoppingItem("cukier")), false)
+        db.listDao().persist(shoppingList)
+        db.listDao().persist(shoppingList2)
+        val list = getValue(db.listDao()
+                .fetch())
+        assertEquals(list.size, 2)
+    }
+
 
 }
