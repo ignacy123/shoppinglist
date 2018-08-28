@@ -21,13 +21,15 @@ class MainActivity : AppCompatActivity() {
 
         val dao = Room.databaseBuilder(this, AppDatabase::class.java, "ShoppingList").allowMainThreadQueries().build()
         dao.listDao().fetch().observe(this, Observer {
-            if (it != null) {
-                val ids = it.map { it.id.toString() }
-                shoppingAdapter.items = ArrayList(ids)
-                shoppingAdapter.notifyDataSetChanged()
+            it?.let {
+                val names = it.map { it.name }
+                with(shoppingAdapter) {
+                    items = ArrayList(names)
+                    notifyDataSetChanged()
+                }
+
             }
         })
-        //TODO tutaj się wywala, nie mam pojęcia czemu
         rc_shopping_list.layoutManager = LinearLayoutManager(this)
         rc_shopping_list.adapter = shoppingAdapter
 
