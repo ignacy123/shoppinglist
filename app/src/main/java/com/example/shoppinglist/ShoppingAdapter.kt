@@ -24,7 +24,7 @@ class ShoppingAdapter(var items: ArrayList<String>, val context: Context) : Recy
 
     override fun onBindViewHolder(holder: ViewHolder?, position: Int) {
         holder?.let {
-            with(holder) {
+            with(holder) { // TODO REVIEW to chyba zbędne?
                 it.product?.text = items.get(position)
                 it.itemView.setOnClickListener {
                     Toast.makeText(context, "List ${items.get(position)} was clicked", Toast.LENGTH_SHORT).show()
